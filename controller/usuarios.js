@@ -87,17 +87,23 @@ const usuariosPost = async (req, res = response) => {
 };
 
 
-const usuariosDelete = async(req, res = response) => {
-    const {id} = req.params;
-    // borrado físico
+const usuariosDelete = async (req, res = response) => {
+    const { id } = req.params;
+    const uid = req.uid;
+    // borrado fisico.
     // const usuario = await Usuario.findByIdAndDelete(id);
-    // borrado lógico
-    const usuario = await Usuario.findByIdAndUpdate(id, {estado: false});
-    
+    // Borrado lógico del usuario
+    const usuario = await Usuario.findByIdAndUpdate(id, { estado: false });
+
+    // Obtener al usuario autenticado desde req.usuario
+    const usuarioAutenticado = req.usuario;
+
+    // Responder con el usuario borrado y el usuario autenticado
     res.json({
         usuario
+        //usuarioAutenticado
     });
-};
+}
 
 const usuariosPatch = (req, res = response) => {
     res.json({
